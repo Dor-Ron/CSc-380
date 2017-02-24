@@ -40,6 +40,17 @@ public class Assignment2 {
     assertEquals(url, correct);
   }
 
+  // Negative Test 1
+  @Test
+  public void getUrlNegativeTest() {
+      try {
+          String url = getUrl(54);
+      } catch (IllegalArgumentException e){
+          System.out.println("Agrument was not was not of type String");
+          fail();
+      }
+  }
+
 /*
   // Positive Test 2
   @Test
@@ -58,5 +69,17 @@ public class Assignment2 {
     String[] filePaths = lettersForWord(egNotFound);
     String[] correct = {"/img/c.gif", "/img/a.gif", "/img/t.gif"};
     assertEquals(filePaths, correct);
+  }
+
+  // Negative Test 3
+  @Test
+  public void lettersForWordNegativeTest() {
+      try {
+          String letter = getLetter(62.9);
+
+      } catch (IllegalArgumentException e) {
+          System.out.println("Agrument was not was not of type String");
+          fail();
+      }
   }
 }
