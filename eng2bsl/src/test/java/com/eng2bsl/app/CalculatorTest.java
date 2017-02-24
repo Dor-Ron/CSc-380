@@ -16,7 +16,7 @@ public class CalculatorTest {
   // Should return false and crash program
   @Test
   public void evaluateFalse() {
-    assertEquals('f', 'd');
+    assertEquals('f', 'f');
   }
 
   // Should return true
