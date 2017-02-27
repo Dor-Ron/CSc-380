@@ -95,7 +95,7 @@ public class CalculatorTest {
   }
 
   // Negative Test 3
-  @Test()
+  @Test
   public void lettersForWordNegativeTest() {
     String badWord = "hello!+-~"; // BSL words dont have numerics or symbols
     String[] goodArr = helper.lettersForWord(badWord, egHashMap);
