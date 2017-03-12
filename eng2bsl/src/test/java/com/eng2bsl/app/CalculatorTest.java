@@ -3,6 +3,10 @@ package com.eng2bsl.app;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.*;
+import org.jsoup.Jsoup;
+import org.jsoup.helper.Validate;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class CalculatorTest {
   public static helperFunctions helper = new helperFunctions();
@@ -39,15 +43,17 @@ public class CalculatorTest {
   // Positive Test 1
   @Test
   public void getUrlPositiveTest() {
-    String url = helper.getUrl(sampleHTML);
+    Document doc = Jsoup.parse(sampleHTML);
+    String url = helper.getUrl(doc);
     String correct = "https://media.signbsl.com/videos/bsl/signstation/reindeer.mp4";
     assertEquals(url, correct);
   }
 
   // Negative Test 1
-  @Test(expected=NullPointerException.class)
+  @Test(expected=java.lang.Exception.class)
   public void getUrlNegativeTest() {
-    String url = helper.getUrl("thisIsNotHTML");
+    Document doc = Jsoup.parse("hello");
+    String url = helper.getUrl(doc);
     String correct = "https://media.signbsl.com/videos/bsl/signstation/reindeer.mp4";
     assertNotEquals(url, correct);
   }
@@ -55,34 +61,10 @@ public class CalculatorTest {
   // Positive Test 2
   @Test
   public void makeLettersMapPositiveTest() {
-    HashMap<Character, String> correctMap = new HashMap<Character, String>();
-    correctMap.put('a', "/img/a.gif");
-    correctMap.put('b', "/img/b.gif");
-    correctMap.put('c', "/img/c.gif");
-    correctMap.put('d', "/img/d.gif");
-    correctMap.put('e', "/img/e.gif");
-    correctMap.put('f', "/img/f.gif");
-    correctMap.put('g', "/img/g.gif");
-    correctMap.put('h', "/img/h.gif");
-    correctMap.put('i', "/img/i.gif");
-    correctMap.put('j', "/img/j.gif");
-    correctMap.put('k', "/img/k.gif");
-    correctMap.put('l', "/img/l.gif");
-    correctMap.put('m', "/img/m.gif");
-    correctMap.put('n', "/img/n.gif");
-    correctMap.put('o', "/img/o.gif");
-    correctMap.put('p', "/img/p.gif");
-    correctMap.put('q', "/img/q.gif");
-    correctMap.put('r', "/img/r.gif");
-    correctMap.put('s', "/img/s.gif");
-    correctMap.put('t', "/img/t.gif");
-    correctMap.put('u', "/img/u.gif");
-    correctMap.put('v', "/img/v.gif");
-    correctMap.put('w', "/img/w.gif");
-    correctMap.put('x', "/img/x.gif");
-    correctMap.put('y', "/img/y.gif");
-    correctMap.put('z', "/img/z.gif");
-    assertEquals(egHashMap, correctMap);
+    assertEquals(egHashMap.get('a'), "/img/a.gif");
+    assertEquals(egHashMap.get('g'), "/img/g.gif");
+    assertEquals(egHashMap.get('z'), "/img/z.gif");
+    assertEquals(egHashMap.get('f'), "/img/f.gif");
   }
 
   // Positive Test 3
@@ -90,7 +72,6 @@ public class CalculatorTest {
   public void lettersForWordPositiveTest() {
     String[] filePaths = helper.lettersForWord(egNotFound, egHashMap);
     String[] correct = {"/img/c.gif", "/img/a.gif", "/img/t.gif"};
-    for (int i = 0; i < 3; i ++) System.out.println(filePaths[i]);
     assertEquals(filePaths, correct);
   }
 
@@ -102,4 +83,53 @@ public class CalculatorTest {
     String[] badArr = {"/img/h.gif", "/img/e.gif", "/img/l.gif", "/img/l.gif", "/img/o.gif", "/img/!.gif", "/img/+.gif", "/img/-.gif", "/img/~.gif"};
     assertNotEquals(goodArr, badArr);
   }
+
+  // ---------------------------------------------
+
+  // Positive Test 4
+  public void getHTMLPositiveTest() {
+    Document doc = helper.getHTML("cat");
+    assertEquals(doc.title(), "British Sign Language (BSL) Video Dictionary - cat");
+    assertEquals(helper.getUrl(doc), "https://media.signbsl.com/videos/bsl/signmonkey/mp4/cat.mp4");
+  }
+
+  // Negative Test 4
+  @Test(expected=NullPointerException.class)
+  public void getHTMLNegativeTest() {
+    Document doc = helper.getHTML("giberrishhhhh");
+    assertNotEquals(doc.title(), "British Sign Language (BSL) Video Dictionary - giberrishhhhh");
+    assertNotEquals(helper.getUrl(doc), "https://media.signbsl.com/videos/bsl/signmonkey/mp4/giberrishhhhh.mp4");
+  }
+
+  // Positive Test 5
+  @Test
+  public void wordExistsPositiveTest() {
+    boolean exists = helper.wordExists("cat");
+    assertTrue(exists);
+  }
+
+  @Test
+  public void wordExistsPositiveTest2() {
+    boolean DoesNotExist = helper.wordExists("giberrishhhh");
+    assertFalse(DoesNotExist);
+  }
+
+  // Negative Test 5
+  @Test
+  public void wordExistsNegativeTest() {
+    boolean notWordBool = helper.wordExists("78");
+    assertTrue(notWordBool);
+  }
+/*
+  // Positive Test 6
+  @Test
+  public void () {
+
+  }
+
+  // Negative Test 6
+  @Test
+  public void () {
+
+  }*/
 }

@@ -25,7 +25,13 @@ public class Sample {
     String[] sampleArray = helper.lettersForWord("SamplewORD", letters);
     for (int i = 0; i < "SamplewORD".length(); i++)
       System.out.println(sampleArray[i]);
-    String rightURL = helper.getUrl(sampleHTML);
+    String rightURL = helper.getUrl(Jsoup.parse(sampleHTML));
     System.out.println(rightURL);
+    Document doc1 = helper.getHTML("cat");
+    String rightURL2 = helper.getUrl(doc1);
+    System.out.println(rightURL2);
+    boolean exists = helper.wordExists("cat");
+    boolean doesNotExist = helper.wordExists("asdfsafsadf");
+    System.out.println(String.format("Cat exists?: %b, asd... doesn't exist: %b", exists, !doesNotExist));
   }
 }

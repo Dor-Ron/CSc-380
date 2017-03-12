@@ -8,8 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class helperFunctions {
-  public String getUrl(String html) {
-    Document doc = Jsoup.parse(html);
+  public String getUrl(Document doc) {
     Element link = doc.select("source").first();
     String url = link.attr("src");
     return url;
@@ -30,5 +29,25 @@ public class helperFunctions {
     for (int i = 0; i < alphabet.length(); i++)
       letters.put(alphabet.charAt(i), String.format("/img/%s.gif", alphabet.charAt(i)));
     return letters;
+  }
+
+  //----------------------------------
+
+  public static Document getHTML(String word) {
+    String url = String.format("http://www.signbsl.com/sign/%s", word);
+    Document doc = null;
+    try {
+      doc = Jsoup.connect(url).get();
+    } catch(java.io.IOException e) {
+      e.printStackTrace();
+    }
+    return doc;
+  }
+
+  public static boolean wordExists(String word) {
+    Document doc = getHTML(word);
+    Element h2 = doc.select(".featurette-heading").first();
+    if (h2 != null && h2.text().charAt(0) == 'N') return false;
+    else return true;
   }
 }
