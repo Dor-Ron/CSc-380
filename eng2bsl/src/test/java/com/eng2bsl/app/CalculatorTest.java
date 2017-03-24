@@ -37,8 +37,8 @@ public class CalculatorTest {
                                    "</body>" +
                                    "</html>";
 
-  public static String egNotFound = "Cat";
-  public static HashMap<Character, String> egHashMap = helper.makeLettersMap();
+  public String egNotFound = "Cat";
+  public HashMap<Character, String> egHashMap = helper.makeLettersMap();
 
   // Positive Test 1
   @Test
@@ -65,8 +65,11 @@ public class CalculatorTest {
     assertEquals(egHashMap.get('g'), "/img/g.gif");
     assertEquals(egHashMap.get('z'), "/img/z.gif");
     assertEquals(egHashMap.get('f'), "/img/f.gif");
+    assertEquals(egHashMap.get('8'), "/img/8.gif");
+    assertEquals(egHashMap.get('2'), "/img/2.gif");
   }
 
+  /* Might not need these any longer
   // Positive Test 3
   @Test
   public void lettersForWordPositiveTest() {
@@ -82,7 +85,7 @@ public class CalculatorTest {
     String[] goodArr = helper.lettersForWord(badWord, egHashMap);
     String[] badArr = {"/img/h.gif", "/img/e.gif", "/img/l.gif", "/img/l.gif", "/img/o.gif", "/img/!.gif", "/img/+.gif", "/img/-.gif", "/img/~.gif"};
     assertNotEquals(goodArr, badArr);
-  }
+  } */
 
   // ---------------------------------------------
 
@@ -115,21 +118,42 @@ public class CalculatorTest {
   }
 
   // Negative Test 5
-  @Test
+  @Test(expected=NullPointerException.class)
   public void wordExistsNegativeTest() {
-    boolean notWordBool = helper.wordExists("78");
-    assertTrue(notWordBool);
+    boolean notWordBool = helper.wordExists("ßßåßœ∑");
+    assertFalse(notWordBool);
   }
-/*
+
   // Positive Test 6
   @Test
-  public void () {
-
+  public void sentToWordArrPositiveTest() {
+    ArrayList<String> sentence = helper.sentToWordArr("Sample sentence for the test");
+    assertEquals(sentence.get(0), "Sample");
+    assertEquals(sentence.get(1), "sentence");
   }
 
-  // Negative Test 6
+  /*
+  //Negative Test 6
   @Test
-  public void () {
+  public void sentToWordArrNegativeTest() {
+
+  }*/
+
+  // Positive Test 7
+  @Test
+  public void isValidCharacterPositiveTest() {
+    boolean valid = helper.isValidCharacter('a');
+    boolean valid2 = helper.isValidCharacter('1');
+    boolean notValid = helper.isValidCharacter('ç');
+    assertTrue(valid);
+    assertTrue(valid2);
+    assertFalse(notValid);
+  }
+
+  /*
+  // Negative Test 7
+  @Test
+  public void isValidCharacterPositiveTest() {
 
   }*/
 }

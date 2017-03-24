@@ -1,6 +1,6 @@
 package com.eng2bsl.app;
 
-import java.util.HashMap;
+import java.util.*;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
@@ -22,16 +22,18 @@ public class Sample {
   public static void main(String[] args) {
     helperFunctions helper = new helperFunctions();
     HashMap<Character, String> letters = helper.makeLettersMap();
-    String[] sampleArray = helper.lettersForWord("SamplewORD", letters);
-    for (int i = 0; i < "SamplewORD".length(); i++)
-      System.out.println(sampleArray[i]);
+  //  String[] sampleArray = helper.lettersForWord("SamplewORD", letters);
+    //for (int i = 0; i < "SamplewORD".length(); i++)
+      //System.out.println(sampleArray[i]);
     String rightURL = helper.getUrl(Jsoup.parse(sampleHTML));
     System.out.println(rightURL);
     Document doc1 = helper.getHTML("cat");
     String rightURL2 = helper.getUrl(doc1);
     System.out.println(rightURL2);
     boolean exists = helper.wordExists("cat");
-    boolean doesNotExist = helper.wordExists("asdfsafsadf");
-    System.out.println(String.format("Cat exists?: %b, asd... doesn't exist: %b", exists, !doesNotExist));
+    boolean doesNotExist = helper.wordExists("78");
+    System.out.println(String.format("Cat exists?: %b, and 78 exits: %b", exists, doesNotExist));
+    ArrayList<String> wordArr = helper.sentToWordArr("Sample sentence to make sure this works");
+    for (int i = 0; i < wordArr.size(); i++) System.out.println(wordArr.get(i));
   }
 }

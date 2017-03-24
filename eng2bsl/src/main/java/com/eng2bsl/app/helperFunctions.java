@@ -1,6 +1,6 @@
 package com.eng2bsl.app;
 
-import java.util.HashMap;
+import java.util.*;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
@@ -8,24 +8,26 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class helperFunctions {
-  public String getUrl(Document doc) {
+
+  public static String getUrl(Document doc) {
     Element link = doc.select("source").first();
     String url = link.attr("src");
     return url;
   }
 
+  /* Might not need this any longer...
   public static String[] lettersForWord(String word, HashMap<Character, String> letterMap) {
     String[] retArr = new String[word.length()];
     for (int i = 0; i < word.length(); i++) {
-      if("abcdefghijklmnopqrstuvwxyz".indexOf(word.toLowerCase().charAt(i)) != -1)
+      if("abcdefghijklmnopqrstuvwxyz0123456789".indexOf(word.toLowerCase().charAt(i)) != -1)
         retArr[i] = letterMap.get(word.toLowerCase().charAt(i));
     }
     return retArr;
-  }
+  } */
 
   public static HashMap<Character, String> makeLettersMap() {
     HashMap<Character, String> letters = new HashMap<Character, String>();
-    String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
     for (int i = 0; i < alphabet.length(); i++)
       letters.put(alphabet.charAt(i), String.format("/img/%s.gif", alphabet.charAt(i)));
     return letters;
@@ -46,8 +48,27 @@ public class helperFunctions {
 
   public static boolean wordExists(String word) {
     Document doc = getHTML(word);
-    Element h2 = doc.select(".featurette-heading").first();
-    if (h2 != null && h2.text().charAt(0) == 'N') return false;
-    else return true;
+    Element link = doc.select("source").first(); // Should be null if word exists..
+    if (link != null) return true;
+    return false;
+  }
+
+  public static boolean isValidCharacter(char symbol) {
+    return ("abcdefghijklmnopqrstuvwxyz0123456789".indexOf(symbol) > -1) ? true : false;
+  }
+
+  public static ArrayList<String> sentToWordArr(String sent) {
+    ArrayList<String> wordList = new ArrayList<String>();
+    int cnt = 0;
+    for (int i = 0; i < sent.length(); i++) {
+        if (sent.charAt(i) == ' ') {
+          if (cnt == 0) wordList.add(sent.substring(cnt, i));
+          else wordList.add(sent.substring(cnt+1, i));
+          cnt = i;
+        }
+        if (i == sent.length()-1 && cnt != 0) wordList.add(sent.substring(cnt+1, i+1));
+        if (i == sent.length()-1 && cnt == 0) wordList.add(sent.substring(cnt, i+1));
+    }
+    return wordList;
   }
 }
