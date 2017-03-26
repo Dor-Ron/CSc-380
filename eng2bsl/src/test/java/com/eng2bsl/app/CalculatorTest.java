@@ -140,6 +140,7 @@ public class CalculatorTest {
   }*/
 
   // Positive Test 7
+  // Test that checks if and whats submitted is valid or not
   @Test
   public void isValidCharacterPositiveTest() {
     boolean valid = helper.isValidCharacter('a');

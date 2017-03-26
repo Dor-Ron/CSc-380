@@ -24,7 +24,7 @@ public class helperFunctions {
     }
     return retArr;
   } */
-
+  // HashMap that implements String values that loops through the letters and links it with the associated image.
   public static HashMap<Character, String> makeLettersMap() {
     HashMap<Character, String> letters = new HashMap<Character, String>();
     String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -52,11 +52,12 @@ public class helperFunctions {
     if (link != null) return true;
     return false;
   }
-
+  // Returns the character value that can only be valid and if not false.
   public static boolean isValidCharacter(char symbol) {
     return ("abcdefghijklmnopqrstuvwxyz0123456789".indexOf(symbol) > -1) ? true : false;
   }
 
+  // Separates String sentence argument into individual words, adds them to the ArrayList, and returns it.
   public static ArrayList<String> sentToWordArr(String sent) {
     ArrayList<String> wordList = new ArrayList<String>();
     int cnt = 0;
