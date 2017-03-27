@@ -157,4 +157,37 @@ public class CalculatorTest {
     assertTrue(valid2);
     assertFalse(notValid);
   }
+
+  /*
+  File: Main.java
+  */
+
+  @Test
+  public void rootRoutePositiveTest() {
+    Map<String, Object> model = new HashMap<>();
+    model.put("title", "English-to-BSL Translator");
+    assertEquals(model.get("title"), "English-to-BSL Translator");
+  }
+
+  @Test
+  public void rootPostPositiveTest() {
+    ArrayList<String> wordsFromSent = new ArrayList<String>();
+    ArrayList<String> wordsForTemplate = new ArrayList<String>();
+    wordsFromSent.add("How");
+    wordsFromSent.add("was");
+    wordsFromSent.add("your");
+    wordsFromSent.add("day");
+    wordsFromSent.add("sir");
+    for(String word: wordsFromSent) {
+      if(helper.wordExists(word)) wordsForTemplate.add(helper.getUrl(helper.getHTML(word)));
+      else {
+        for (int i = 0; i < word.length(); i++) {
+          if (helper.isValidCharacter(word.toLowerCase().charAt(i))) wordsForTemplate.add(egHashMap.get(word.toLowerCase().charAt(i)));
+        }
+      }
+    }
+    assertEquals(wordsForTemplate.get(0), "https://media.signbsl.com/videos/bsl/signmonkey/mp4/how.mp4");
+    assertEquals(wordsForTemplate.get(4), "https://media.signbsl.com/videos/bsl/signmonkey/mp4/your.mp4");
+    assertEquals(wordsForTemplate.get(1), "/img/w.gif");
+  }
 }

@@ -9,9 +9,7 @@ import spark.template.velocity.VelocityTemplateEngine;
 public class Main {
   public static helperFunctions helper = new helperFunctions();
   public static HashMap<Character, String> charMap = helper.makeLettersMap();
-  public static ArrayList<String> wordsFromSent = new ArrayList<String>();
-  public static ArrayList<String> wordsForTemplate = new ArrayList<String>();
-  public static Map<String, Object> passToResult = new HashMap<>();
+  public static Map<String, HashMap<String, ArrayList<String>>> passToResult = new HashMap<String, HashMap<String, ArrayList<String>>>();
 
   public static void main(String[] args) {
     staticFiles.location("/public");
@@ -24,8 +22,11 @@ public class Main {
     });
 
     post("/", (req, res) -> {
-      wordsForTemplate.clear(); // clear list before each POST
-      wordsFromSent = helper.sentToWordArr(req.queryParams("userPhrase"));
+      passToResult.put(req.queryParams("userPhrase"), new HashMap<String, ArrayList<String>>());
+      HashMap<String, ArrayList<String>> passMap = passToResult.get(req.queryParams("userPhrase"));
+      passMap.put("phrase", new ArrayList<String>());
+      ArrayList<String> wordsForTemplate = passMap.get("phrase");
+      ArrayList<String> wordsFromSent = helper.sentToWordArr(req.queryParams("userPhrase"));
       for(String word: wordsFromSent) {
         if(helper.wordExists(word)) wordsForTemplate.add(helper.getUrl(helper.getHTML(word)));
         else {
@@ -35,14 +36,13 @@ public class Main {
           }
         }
       }
-      passToResult.put("phrase", wordsForTemplate);
-      res.redirect("/hey");
+      res.redirect(String.format("/results/%s", req.queryParams("userPhrase")));
       return "submitted";
     });
 
-    get("/hey", (req, res) -> {
+    get("/results/:sent", (req, res) -> {
       return new VelocityTemplateEngine().render(
-          new ModelAndView(passToResult, "templates/result.vtl")
+          new ModelAndView(passToResult.get(req.params("sent")), "templates/result.vtl")
       );
     });
   }
