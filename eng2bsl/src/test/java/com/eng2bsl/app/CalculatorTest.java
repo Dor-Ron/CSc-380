@@ -136,12 +136,16 @@ public class CalculatorTest {
     assertEquals(sentence.get(1), "sentence");
   }
 
-  /*
-  //Negative Test 6
-  @Test
-  public void sentToWordArrNegativeTest() {
 
-  }*/
+  // Negative Test 6
+  // makes sure program crashes if null suppied as parameter instead of String
+  @Test(expected=NullPointerException.class)
+  public void sentToWordArrNegativeTest() {
+    ArrayList<String> sentence = helper.sentToWordArr(null);
+    ArrayList<String> wrong = new ArrayList<String>();
+    wrong.add(null);
+    assertEquals(sentence, wrong);
+  }
 
   // Positive Test for helperFunctions.isValidCharacter
   @Test
@@ -153,11 +157,4 @@ public class CalculatorTest {
     assertTrue(valid2);
     assertFalse(notValid);
   }
-
-  /*
-  // Negative Test 7
-  @Test
-  public void isValidCharacterPositiveTest() {
-
-  }*/
 }
