@@ -40,7 +40,7 @@ public class CalculatorTest {
   public String egNotFound = "Cat";
   public HashMap<Character, String> egHashMap = helper.makeLettersMap();
 
-  // Positive Test 1
+  // Positive Test for helperFunctions.getUrl
   @Test
   public void getUrlPositiveTest() {
     Document doc = Jsoup.parse(sampleHTML);
@@ -49,7 +49,8 @@ public class CalculatorTest {
     assertEquals(url, correct);
   }
 
-  // Negative Test 1
+  // Negative Test for helperFunctions.getUrl
+  // Makes sure program crashes if String input isn't valid HTML
   @Test(expected=java.lang.Exception.class)
   public void getUrlNegativeTest() {
     Document doc = Jsoup.parse("hello");
@@ -58,7 +59,8 @@ public class CalculatorTest {
     assertNotEquals(url, correct);
   }
 
-  // Positive Test 2
+  // Positive Test for helperFunctions.makeLettersMap
+  // Asserts that alphanumeric characters mapped to correct file paths
   @Test
   public void makeLettersMapPositiveTest() {
     assertEquals(egHashMap.get('a'), "/img/a.gif");
@@ -89,14 +91,15 @@ public class CalculatorTest {
 
   // ---------------------------------------------
 
-  // Positive Test 4
+  // Positive Test for helperFunctions.getHTML
   public void getHTMLPositiveTest() {
     Document doc = helper.getHTML("cat");
     assertEquals(doc.title(), "British Sign Language (BSL) Video Dictionary - cat");
     assertEquals(helper.getUrl(doc), "https://media.signbsl.com/videos/bsl/signmonkey/mp4/cat.mp4");
   }
 
-  // Negative Test 4
+  // Negative Test for helperFunctions.getHTML
+  // Makes sure program crashes if you attempt to get HTML for word that doesn't exist
   @Test(expected=NullPointerException.class)
   public void getHTMLNegativeTest() {
     Document doc = helper.getHTML("giberrishhhhh");
@@ -104,31 +107,28 @@ public class CalculatorTest {
     assertNotEquals(helper.getUrl(doc), "https://media.signbsl.com/videos/bsl/signmonkey/mp4/giberrishhhhh.mp4");
   }
 
-  // Positive Test 5
-  // Test that inputs the type of words that exist
+  // Positive Test for helperFunctions.wordExists
   @Test
   public void wordExistsPositiveTest() {
     boolean exists = helper.wordExists("cat");
     assertTrue(exists);
   }
 
-  // Test that inputs the type of words that exist
   @Test
   public void wordExistsPositiveTest2() {
     boolean DoesNotExist = helper.wordExists("giberrishhhh");
     assertFalse(DoesNotExist);
   }
 
-  // Negative Test 5
-    // Test that says which type of word doesn't exist
+  // Negative Test helperFunctions.wordExists
+  // Shows that program crashes for none UTF-8 characters
   @Test(expected=NullPointerException.class)
   public void wordExistsNegativeTest() {
     boolean notWordBool = helper.wordExists("ßßåßœ∑");
     assertFalse(notWordBool);
   }
 
-  // Positive Test 6
-  // Test that goes through every string in the sentence and returns the individual video or img for it.
+  // Positive Test helperFunctions.sentToWordArr
   @Test
   public void sentToWordArrPositiveTest() {
     ArrayList<String> sentence = helper.sentToWordArr("Sample sentence for the test");
@@ -143,8 +143,7 @@ public class CalculatorTest {
 
   }*/
 
-  // Positive Test 7
-  // Test that checks if and whats submitted is valid or not
+  // Positive Test for helperFunctions.isValidCharacter
   @Test
   public void isValidCharacterPositiveTest() {
     boolean valid = helper.isValidCharacter('a');

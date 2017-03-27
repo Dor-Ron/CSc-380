@@ -22,9 +22,9 @@ public class Sample {
   public static void main(String[] args) {
     helperFunctions helper = new helperFunctions();
     HashMap<Character, String> letters = helper.makeLettersMap();
-  //  String[] sampleArray = helper.lettersForWord("SamplewORD", letters);
-    //for (int i = 0; i < "SamplewORD".length(); i++)
-      //System.out.println(sampleArray[i]);
+    /*String[] sampleArray = helper.lettersForWord("SamplewORD", letters);
+    for (int i = 0; i < "SamplewORD".length(); i++)
+      System.out.println(sampleArray[i]);*/
     String rightURL = helper.getUrl(Jsoup.parse(sampleHTML));
     System.out.println(rightURL);
     Document doc1 = helper.getHTML("cat");

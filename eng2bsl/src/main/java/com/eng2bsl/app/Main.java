@@ -30,7 +30,8 @@ public class Main {
         if(helper.wordExists(word)) wordsForTemplate.add(helper.getUrl(helper.getHTML(word)));
         else {
           for (int i = 0; i < word.length(); i++) {
-            if (helper.isValidCharacter(word.charAt(i))) wordsForTemplate.add(charMap.get(word.charAt(i)));
+            //System.out.println(word.toLowerCase().charAt(i));
+            if (helper.isValidCharacter(word.toLowerCase().charAt(i))) wordsForTemplate.add(charMap.get(word.toLowerCase().charAt(i)));
           }
         }
       }

@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class helperFunctions {
-
+  // Returns String of URL from the Jsoup.Document parameter
   public static String getUrl(Document doc) {
     Element link = doc.select("source").first();
     String url = link.attr("src");
@@ -24,7 +24,8 @@ public class helperFunctions {
     }
     return retArr;
   } */
-  // HashMap that implements String values that loops through the letters and links it with the associated image.
+
+  // Returns java.util.HashMap with alphanumeric key pointing to corresponding string filepath for that input
   public static HashMap<Character, String> makeLettersMap() {
     HashMap<Character, String> letters = new HashMap<Character, String>();
     String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -35,6 +36,7 @@ public class helperFunctions {
 
   //----------------------------------
 
+  // Returns Jsoup.Document object of String param: http://www.signbsl.com/sign/<param> API endpoint
   public static Document getHTML(String word) {
     String url = String.format("http://www.signbsl.com/sign/%s", word);
     Document doc = null;
@@ -46,13 +48,15 @@ public class helperFunctions {
     return doc;
   }
 
+  // Returns true if URL for video exists, false otherwise.
   public static boolean wordExists(String word) {
     Document doc = getHTML(word);
     Element link = doc.select("source").first(); // Should be null if word exists..
     if (link != null) return true;
     return false;
   }
-  // Returns the character value that can only be valid and if not false.
+
+  // Returns true if input is alphanumeric, false otherwise.
   public static boolean isValidCharacter(char symbol) {
     return ("abcdefghijklmnopqrstuvwxyz0123456789".indexOf(symbol) > -1) ? true : false;
   }
