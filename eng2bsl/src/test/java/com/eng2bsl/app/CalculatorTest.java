@@ -105,12 +105,14 @@ public class CalculatorTest {
   }
 
   // Positive Test 5
+  // Test that inputs the type of words that exist
   @Test
   public void wordExistsPositiveTest() {
     boolean exists = helper.wordExists("cat");
     assertTrue(exists);
   }
 
+  // Test that inputs the type of words that exist
   @Test
   public void wordExistsPositiveTest2() {
     boolean DoesNotExist = helper.wordExists("giberrishhhh");
@@ -118,6 +120,7 @@ public class CalculatorTest {
   }
 
   // Negative Test 5
+    // Test that says which type of word doesn't exist
   @Test(expected=NullPointerException.class)
   public void wordExistsNegativeTest() {
     boolean notWordBool = helper.wordExists("ßßåßœ∑");
@@ -125,6 +128,7 @@ public class CalculatorTest {
   }
 
   // Positive Test 6
+  // Test that goes through every string in the sentence and returns the individual video or img for it.
   @Test
   public void sentToWordArrPositiveTest() {
     ArrayList<String> sentence = helper.sentToWordArr("Sample sentence for the test");
