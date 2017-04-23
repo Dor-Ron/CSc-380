@@ -164,7 +164,7 @@ public class CalculatorTest {
 
   @Test
   public void rootRoutePositiveTest() {
-    Map<String, Object> model = new HashMap<>();
+    Map<String, Object> model = new HashMap<String, Object>();
     model.put("title", "English-to-BSL Translator");
     assertEquals(model.get("title"), "English-to-BSL Translator");
   }
