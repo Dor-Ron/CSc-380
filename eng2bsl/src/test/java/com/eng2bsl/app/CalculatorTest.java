@@ -190,4 +190,14 @@ public class CalculatorTest {
     assertEquals(wordsForTemplate.get(4), "https://media.signbsl.com/videos/bsl/signmonkey/mp4/your.mp4");
     assertEquals(wordsForTemplate.get(1), "/img/w.gif");
   }
+
+
+  // Positive Test to make sure regex works
+  @Test
+  public void urlRegexPositiveTest() {
+    String eg = "doe%s th~is w&ork?";
+    String expected = "doe s th is w ork ";
+    eg = eg.replaceAll("[\\?&%=;\\/:\\\\@=\"<>#{}\\|\\^~\\[\\]\\`]", " ");
+    assertEquals(eg, expected);
+  }
 }
