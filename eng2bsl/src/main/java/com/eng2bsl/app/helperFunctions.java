@@ -50,6 +50,7 @@ public class helperFunctions {
 
   // Returns true if URL for video exists, false otherwise.
   public static boolean wordExists(String word) {
+    word = word.replaceAll("[\\?&%=;\\/:\\\\@=\"<>#{}\\|\\^~\\[\\]\\`]", " ");
     Document doc = getHTML(word);
     Element link = doc.select("source").first(); // Should be null if word exists..
     if (link != null) return true;

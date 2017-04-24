@@ -22,27 +22,37 @@ public class Main {
     });
 
     post("/", (req, res) -> {
-      passToResult.put(req.queryParams("userPhrase"), new HashMap<String, ArrayList<String>>());
-      HashMap<String, ArrayList<String>> passMap = passToResult.get(req.queryParams("userPhrase"));
+      String specialUrlRegex = "[\\?&%=;\\/:\\\\@=\"<>#{}\\|\\^~\\[\\]\\`]";  // characters from https://perishablepress.com/stop-using-unsafe-characters-in-urls/
+      String sentence = req.queryParams("userPhrase").replaceAll(specialUrlRegex, " ");  // problem if reserved URL characters in URL string
+      passToResult.put(sentence, new HashMap<String, ArrayList<String>>());
+      HashMap<String, ArrayList<String>> passMap = passToResult.get(sentence);
       passMap.put("phrase", new ArrayList<String>());
+      passMap.put("components", new ArrayList<String>());
       ArrayList<String> wordsForTemplate = passMap.get("phrase");
-      ArrayList<String> wordsFromSent = helper.sentToWordArr(req.queryParams("userPhrase"));
+      ArrayList<String> wordsAndChars = passMap.get("components");
+      ArrayList<String> wordsFromSent = helper.sentToWordArr(sentence);
       for(String word: wordsFromSent) {
-        if(helper.wordExists(word)) wordsForTemplate.add(helper.getUrl(helper.getHTML(word)));
-        else {
+        if(helper.wordExists(word)) {
+          wordsForTemplate.add(helper.getUrl(helper.getHTML(word)));
+          wordsAndChars.add(word);
+        } else {
           for (int i = 0; i < word.length(); i++) {
-            //System.out.println(word.toLowerCase().charAt(i));
-            if (helper.isValidCharacter(word.toLowerCase().charAt(i))) wordsForTemplate.add(charMap.get(word.toLowerCase().charAt(i)));
+            if (helper.isValidCharacter(word.toLowerCase().charAt(i))) {
+               wordsForTemplate.add(charMap.get(word.toLowerCase().charAt(i)));
+               wordsAndChars.add(String.valueOf(word.toLowerCase().charAt(i)));
+            }
           }
         }
       }
-      res.redirect(String.format("/results/%s", req.queryParams("userPhrase")));
+      System.out.println(String.format("/results/%s", sentence));
+      res.redirect(String.format("/results/%s", sentence));
       return "submitted";
     });
 
-    get("/results/:sent", (req, res) -> {
+    get("/results/*", (req, res) -> {
+      System.out.println(req.splat()[0]);
       return new VelocityTemplateEngine().render(
-          new ModelAndView(passToResult.get(req.params("sent")), "templates/result.vtl")
+          new ModelAndView(passToResult.get(req.splat()[0]), "templates/result.vtl")
       );
     });
   }

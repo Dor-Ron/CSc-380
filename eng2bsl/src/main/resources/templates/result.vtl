@@ -3,16 +3,24 @@
 		<title>Your BSL Translation</title>
 	</head>
 	<body>
-  #foreach( $word in $phrase )
-    #if ( $word.substring(0, 4) == "http" )
-      <video width="320" height="240" controls>
-        <source src="$word" type="video/mp4">
-      </video>
-      <br/>
-    #else
-      <img src="$word" height=250 width=250/>
-      <br/>
-    #end
-  #end
+		<ul>
+			#foreach( $word in $phrase )
+				#if ( $word.substring(0, 4) == "http" )
+					<li>
+						<h4>$components.get( $foreach.index )</h4>
+						<video width="320" height="240" controls>
+							<source src="$word" type="video/mp4">
+						</video>
+						<br/>
+					</li>
+				#else
+					<li>
+						<h4>$components.get( $foreach.index )</h4>
+						<img src="$word" height=250 width=250/>
+						<br/>
+					</li>
+				#end
+			#end
+		</ul>
 	</body>
 </html>
