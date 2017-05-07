@@ -15,16 +15,6 @@ public class helperFunctions {
     return url;
   }
 
-  /* Might not need this any longer...
-  public static String[] lettersForWord(String word, HashMap<Character, String> letterMap) {
-    String[] retArr = new String[word.length()];
-    for (int i = 0; i < word.length(); i++) {
-      if("abcdefghijklmnopqrstuvwxyz0123456789".indexOf(word.toLowerCase().charAt(i)) != -1)
-        retArr[i] = letterMap.get(word.toLowerCase().charAt(i));
-    }
-    return retArr;
-  } */
-
   // Returns java.util.HashMap with alphanumeric key pointing to corresponding string filepath for that input
   public static HashMap<Character, String> makeLettersMap() {
     HashMap<Character, String> letters = new HashMap<Character, String>();
@@ -33,8 +23,6 @@ public class helperFunctions {
       letters.put(alphabet.charAt(i), String.format("/img/%s.gif", alphabet.charAt(i)));
     return letters;
   }
-
-  //----------------------------------
 
   // Returns Jsoup.Document object of String param: http://www.signbsl.com/sign/<param> API endpoint
   public static Document getHTML(String word) {
