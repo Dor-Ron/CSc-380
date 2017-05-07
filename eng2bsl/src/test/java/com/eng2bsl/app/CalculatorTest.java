@@ -71,26 +71,6 @@ public class CalculatorTest {
     assertEquals(egHashMap.get('2'), "/img/2.gif");
   }
 
-  /* Might not need these any longer
-  // Positive Test 3
-  @Test
-  public void lettersForWordPositiveTest() {
-    String[] filePaths = helper.lettersForWord(egNotFound, egHashMap);
-    String[] correct = {"/img/c.gif", "/img/a.gif", "/img/t.gif"};
-    assertEquals(filePaths, correct);
-  }
-
-  // Negative Test 3
-  @Test
-  public void lettersForWordNegativeTest() {
-    String badWord = "hello!+-~"; // BSL words dont have numerics or symbols
-    String[] goodArr = helper.lettersForWord(badWord, egHashMap);
-    String[] badArr = {"/img/h.gif", "/img/e.gif", "/img/l.gif", "/img/l.gif", "/img/o.gif", "/img/!.gif", "/img/+.gif", "/img/-.gif", "/img/~.gif"};
-    assertNotEquals(goodArr, badArr);
-  } */
-
-  // ---------------------------------------------
-
   // Positive Test for helperFunctions.getHTML
   public void getHTMLPositiveTest() {
     Document doc = helper.getHTML("cat");

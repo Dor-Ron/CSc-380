@@ -23,7 +23,7 @@ public class Main {
 
     post("/", (req, res) -> {
       String specialUrlRegex = "[\\?&%=;\\/:\\\\@=\"<>#{}\\|\\^~\\[\\]\\`]";  // characters from https://perishablepress.com/stop-using-unsafe-characters-in-urls/
-      String sentence = req.queryParams("userPhrase").replaceAll(specialUrlRegex, " ");  // problem if reserved URL characters in URL string
+      String sentence = req.queryParams("userPhrase").replaceAll(specialUrlRegex, " ").trim();  // problem if reserved URL characters in URL string
       passToResult.put(sentence, new HashMap<String, ArrayList<String>>());
       HashMap<String, ArrayList<String>> passMap = passToResult.get(sentence);
       passMap.put("phrase", new ArrayList<String>());
@@ -44,13 +44,11 @@ public class Main {
           }
         }
       }
-      System.out.println(String.format("/results/%s", sentence));
       res.redirect(String.format("/results/%s", sentence));
       return "submitted";
     });
 
     get("/results/*", (req, res) -> {
-      System.out.println(req.splat()[0]);
       return new VelocityTemplateEngine().render(
           new ModelAndView(passToResult.get(req.splat()[0]), "templates/result.vtl")
       );
