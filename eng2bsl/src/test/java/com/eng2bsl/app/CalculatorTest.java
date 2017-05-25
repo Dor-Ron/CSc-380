@@ -20,14 +20,14 @@ public class CalculatorTest {
                                    "<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css\" rel=\"stylesheet\">" +
                                    "<!-- Custom styles for this template -->" +
                                    "<link href=\"/jumbotron.css\" rel=\"stylesheet\">" +
-					                         "<meta property=\"og:type\" content=\"article\" />" +
+				   "<meta property=\"og:type\" content=\"article\" />" +
                                    "<meta name=\"description\" content=\"Watch how to sign 'home' in British Sign Language.\" />" +
-		                               "<meta property=\"og:description\" content=\"Watch how to sign 'home' in British Sign Language.\" />" +
-		                               "<meta itemprop=\"description\" content=\"Watch how to sign 'home' in British Sign Language.\">" +
-		                               "<meta property=\"og:video\" content=\"http://media.signbsl.com/videos/wolver/mp4/eng_home_8906.mp4\" />" +
-								                   "<meta name=\"twitter:card\" content=\"player\">" +
-	                                 "<meta name=\"twitter:title\" content=\"Watch how to sign 'home' in British Sign Language.\" />" +
-			                             "<meta name=\"twitter:player:stream\" content=\"https://media.signbsl.com/videos/wolver/mp4/eng_home_8906.mp4\">" +
+			           "<meta property=\"og:description\" content=\"Watch how to sign 'home' in British Sign Language.\" />" +
+			           "<meta itemprop=\"description\" content=\"Watch how to sign 'home' in British Sign Language.\">" +
+			           "<meta property=\"og:video\" content=\"http://media.signbsl.com/videos/wolver/mp4/eng_home_8906.mp4\" />" +
+				   "<meta name=\"twitter:card\" content=\"player\">" +
+	                           "<meta name=\"twitter:title\" content=\"Watch how to sign 'home' in British Sign Language.\" />" +
+			           "<meta name=\"twitter:player:stream\" content=\"https://media.signbsl.com/videos/wolver/mp4/eng_home_8906.mp4\">" +
                                    "<link href=\"//vjs.zencdn.net/4.2.2/video-js.css\" rel=\"stylesheet\">" +
                                    "<script src=\"//vjs.zencdn.net/4.2.2/video.js\"></script>" +
                                    "<script type=\"text/javascript\" src=\"//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.3/js.cookie.js\"></script>" +
